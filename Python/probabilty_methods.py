@@ -31,7 +31,7 @@ class Number:
         else:
             return "Число {} составное",format(test_number)  
 
-    def R_M_test(self):
+    def R_M_test(self,k):
         '''
         1. Представить n-1 в виде n-1=2^s  число r - нечетное.
         2. Выбирается случайное целое число a, 2<=a<=n-2.
@@ -46,4 +46,23 @@ class Number:
         5. Результат: " число n вероятно простое "
         '''
         tested = get_number()
-        
+        if tested == 2:
+            return True
+        if tested % 2 == 0:
+            return False
+        r,s =0,tested-1
+        while s%2 ==0:
+            r+=1
+            s//=2
+            for _ in range(k):
+                a = random.randrange(2, tested - 1)
+                x = pow(a, s, tested)
+                if x == 1 or x == tested - 1:
+                    continue
+                for _ in range(r - 1):
+                    x = pow(x, 2, tested)
+                    if x == tested - 1:
+                        break
+                else:
+                    return False
+            return True
