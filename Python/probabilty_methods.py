@@ -3,17 +3,15 @@ import random as random
 
 class Number:
     number = int()
-    def __init__(self,number):
-        number = self.number
+    def __init__(self):
+       pass
     
-    def get_number(self):
-        return number
+    def get_number(self): 
+        ''' Getter for number '''
+        self.number = int(input('Введите желаемое число'))
+        return self.number
 
-    def set_number(self,int: value):
-        number = self.value 
-        return number
-
-    def Ferm_test(self):
+    def Ferm_test(self,num:int):
         '''
         Входные данные: нечетное число n≥5;
             Выходные данные: "число n составное", " число n вероятно
@@ -23,16 +21,16 @@ class Number:
             3. При r=1 тест дает ответ, что "число n вероятно простое".
             Иначе " число n составное ".
         '''
-        test_number = get_number()
-        a  = int(random.random(2,test_number-2)) # random.random() возвращает float
-        r = int((a**(test_number-1))%test_number)
+        a  = random.randint(2,num-2)
+        r = int((a**(num-1))%num)
         if r ==1:
-            return "Число {} вероятно простое",format(test_number)
+            print( "Число {0} вероятно простое".format(num))
         else:
-            return "Число {} составное",format(test_number)  
+            print( "Число {0} составное".format(num))
 
-    def R_M_test(self,k):
+    def R_M_test(self,k:int,num:int):
         '''
+        k - Количество испитаний
         1. Представить n-1 в виде n-1=2^s  число r - нечетное.
         2. Выбирается случайное целое число a, 2<=a<=n-2.
         3. Вычислить y = a^r(mod n)
@@ -45,24 +43,37 @@ class Number:
                     4.3 При y != n-1 результат: " число n составное ".
         5. Результат: " число n вероятно простое "
         '''
-        tested = get_number()
-        if tested == 2:
-            return True
-        if tested % 2 == 0:
-            return False
-        r,s =0,tested-1
+       
+        if num == 2:
+            print("True")
+        if num % 2 == 0:
+           print("False")
+        r,s =0,num-1
         while s%2 ==0:
             r+=1
             s//=2
             for _ in range(k):
-                a = random.randrange(2, tested - 1)
-                x = pow(a, s, tested)
-                if x == 1 or x == tested - 1:
-                    continue
-                for _ in range(r - 1):
-                    x = pow(x, 2, tested)
-                    if x == tested - 1:
-                        break
-                else:
-                    return False
-            return True
+             a = random.randrange(2, num - 1)
+             x = pow(a, s, num)
+            if x == 1 or x == num - 1:
+                continue
+            for _ in range(r - 1):
+                x = pow(x, 2, num)
+                if x == num - 1:
+                    break
+            else:
+               print( 'Число {0} вероятно простое'.format(num))
+        print( 'Число {0} составное'.format(num))
+
+
+test =  Number()
+num = test.get_number()
+print('\n')
+choice = int(input('Выберите желаемый тест : \n 1. Тест Ферма \n 2. Тест Рабина - Миллера \n'))
+while choice !=1 and choice !=2:
+    print('Неверная команда!')
+if choice == 1:
+    test.Ferm_test(num)
+else:
+   test_num =  int(input('Введите число проверок : '))
+   test.R_M_test(test_num,num)
