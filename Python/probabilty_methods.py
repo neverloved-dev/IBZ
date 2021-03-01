@@ -6,8 +6,8 @@ class Number:
     def __init__(self):
        pass
     
-    def get_number(self): 
-        ''' Getter for number '''
+    def set_number(self): 
+        ''' Setter for our number '''
         self.number = int(input('Введите желаемое число'))
         return self.number
 
@@ -67,13 +67,18 @@ class Number:
 
 
 test =  Number()
-num = test.get_number()
+num = test.set_number()
 print('\n')
-choice = int(input('Выберите желаемый тест : \n 1. Тест Ферма \n 2. Тест Рабина - Миллера \n'))
-while choice !=1 and choice !=2:
-    print('Неверная команда!')
-if choice == 1:
-    test.Ferm_test(num)
-else:
-   test_num =  int(input('Введите число проверок : '))
-   test.R_M_test(test_num,num)
+while True:
+
+    choice = int(input('Выберите желаемый тест : \n 1. Тест Ферма \n 2. Тест Рабина - Миллера \n'))
+    if choice !=1 and choice !=2:
+        print('Неверная команда!')
+        continue
+    if choice == 1:
+        test.Ferm_test(num)
+        break
+    else:
+        test_num =  int(input('Введите число проверок : '))
+        test.R_M_test(test_num,num)
+        break
