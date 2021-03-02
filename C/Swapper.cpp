@@ -20,7 +20,7 @@ public:
 		return text;
 	}
 	std::string Enconde(std::string text, std::vector <int> nums)
-	{
+	{ 
 		
 		int str_size = text.length();
 		int i;

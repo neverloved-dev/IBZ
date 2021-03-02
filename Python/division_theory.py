@@ -1,67 +1,46 @@
-#Модуль реализует алгоритм теории делимости
 import math as math
-''' 
-Испытание на делимость - самое простое детерминированное
-испытание. В его основе лежит использование в качестве делителей
-всех чисел меньших, чем sqr(n) . Если любое из этих чисел делит n, то
-n - составное число.
 
-'''
+def get_factors(number: int) -> list:
+    """
+    Return the factors of a number.
 
-class Number():
-    number = int()
-    def __init__(self):
-        pass
+    :param number: int, positive integer > 1.
+    :return: lst, a sorted list of the factors.
 
-    def setNumber(self):
-        ''' Set the number to be tested! 
-            --------
-            Args:
-                none
+    >>> get_factors(2)
+    [1, 2]
+    >>> get_factors(3)
+    [1, 3]
+    >>> get_factors(4)
+    [1, 2, 4]
+    >>> get_factors(100)
+    [1, 2, 4, 5, 10, 20, 25, 50, 100]
+    """
+    if number < 2 or not type(number) == int:
+        raise ValueError(f'{number} is invalid. Must be a positive integer > 1.')
 
-            Returns:
-                void
-         '''
-        self.number = int(input("Введите число на проверку:  "))
-        return self.number 
-    def getNumber(self):
-       ''' 
-       Getter for the number
-        ----------
-        Args:
-            None
-        
-        Returns:
-            number: a number written by the setNumber()
-       '''
-       return number
+    factors = {1, number}
+    max_value = int(math.sqrt(number))
 
-    def divisible(self,n:int):
-        '''
-        Method to determine divisibility of a number.
-        ---------
-        This method will determine if a number is a simple number or not by using it's square root and dividing the number will all
-        the numbers smaller than the sqr(n) with n itself. If there is any number in that spectrum divisible by n, it means that
-        our n is not a simple number.
+    for i in range(2, max_value + 1):
+        if number % i == 0:
+            factors.add(i)
+            factors.add(number // i)
 
-        Args:
-            n(int): A number to be checked.
+    return sorted(list(factors))
 
-        Returns:
-            result(string): A message showing weather n is a simple number or not
-        '''
- 
-        test_num = math.sqrt(n)
-        message = " "
-        for i in range(3,int(test_num)):
-           if(i %2 !=0 and i <test_num):
-               result = n % i
-               if result == 0:
-                   print("Число {0} составное".format(n))
-               if i == test_num:
-                   print ("Число {0} простое")
+def main():
+    num = int(input('Enter a positive integer greater than 1: '))
+    if num < 2:
+        raise ValueError(f'{num} is invalid. Must be a positive integer > 1.')
+
+    num_factors = get_factors(num)
+
+    if len(num_factors) == 2:
+        print(f'{num} is a prime number.')
+    else:
+        print(f'{num} is not a prime number with factors {num_factors}.')
 
 
-test = Number()
-byte = test.setNumber()
-test.divisible(byte)
+if __name__ == '__main__':
+    main()
