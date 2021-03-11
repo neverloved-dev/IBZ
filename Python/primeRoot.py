@@ -1,4 +1,5 @@
 import math
+import Dif_Helman
 
 class Input:
     @staticmethod
@@ -72,6 +73,28 @@ class Prime:
           if required_set == real_set:
               return g
 
+#вызов метода шифрования для создания 2-х ключей
+def cypher_method(prime_root,dec_convert):
+    # публичный ключ для первого
+    secret_number_A_A = Dif_Helman.Dif_Helman_cypher.secret_number_generator()
+    public_key_A = Dif_Helman.Dif_Helman_cypher.key_generator(dec_convert,secret_number_A_A,prime_root)
+
+    # публичный ключ для второго
+    secret_number_B_B = Dif_Helman.Dif_Helman_cypher.secret_number_generator()
+    public_key_B = Dif_Helman.Dif_Helman_cypher.key_generator(dec_convert,secret_number_B_B,prime_root)
+
+    # секретный ключ для первого
+    private_key_A = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_B,secret_number_A_A,dec_convert)
+    private_key_B = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_A,secret_number_B_B,dec_convert)
+    pass
+
+# вопрос для пользователя
+def question(prime_root,dec_convert):
+   answer = input("Создать секретный ключ c полученным числом?")
+   if answer == "да":
+      cypher_method(prime_root,dec_convert)
+      return True
+   return False
 
 def main():
     print('Start')
@@ -81,14 +104,17 @@ def main():
          dec_convert =  Input.convert_binary_to_decimal(Input.binary_input())
          prime_root = Prime.prime_root(dec_convert)
          print("Простое корень: {0}".format(prime_root))
+         question(prime_root,dec_convert )
         elif menu == 10:
           dec_convert =  Input.decimal_input()
           prime_root = Prime.prime_root(dec_convert)
           print("Простое корень: {0}".format(prime_root))
+          question(prime_root, dec_convert)
         elif menu == 16:
-          hex_convert = Input.convert_hex_to_binary(Input.hex_input())
-          prime_root = Prime.prime_root(hex_convert)
+          dec_convert = Input.convert_hex_to_binary(Input.hex_input())
+          prime_root = Prime.prime_root(dec_convert)
           print("Простое корень: {0}".format(prime_root))
+          question(prime_root,dec_convert)
         else:
             break
 
