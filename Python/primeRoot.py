@@ -76,17 +76,19 @@ class Prime:
 #вызов метода шифрования для создания 2-х ключей
 def cypher_method(prime_root,dec_convert):
     # публичный ключ для первого
-    secret_number_A_A = Dif_Helman.Dif_Helman_cypher.secret_number_generator()
-    public_key_A = Dif_Helman.Dif_Helman_cypher.key_generator(dec_convert,secret_number_A_A,prime_root)
+    secret_number_A = Dif_Helman.Dif_Helman_cypher.secret_number_generator()
+    public_key_A = Dif_Helman.Dif_Helman_cypher.key_generator(dec_convert,secret_number_A,prime_root)
 
     # публичный ключ для второго
-    secret_number_B_B = Dif_Helman.Dif_Helman_cypher.secret_number_generator()
-    public_key_B = Dif_Helman.Dif_Helman_cypher.key_generator(dec_convert,secret_number_B_B,prime_root)
+    secret_number_B = Dif_Helman.Dif_Helman_cypher.secret_number_generator()
+    public_key_B = Dif_Helman.Dif_Helman_cypher.key_generator(dec_convert,secret_number_B,prime_root)
 
     # секретный ключ для первого
-    private_key_A = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_B,secret_number_A_A,dec_convert)
-    private_key_B = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_A,secret_number_B_B,dec_convert)
-    pass
+    private_key_A = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_B,secret_number_A,dec_convert)
+    private_key_B = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_A,secret_number_B,dec_convert)
+
+    print(public_key_A + '\t' + public_key_B)
+
 
 # вопрос для пользователя
 def question(prime_root,dec_convert):
