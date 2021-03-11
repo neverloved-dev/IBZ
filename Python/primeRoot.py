@@ -87,8 +87,7 @@ def cypher_method(prime_root,dec_convert):
     private_key_A = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_B,secret_number_A,dec_convert)
     private_key_B = Dif_Helman.Dif_Helman_cypher.secret_key_generator(public_key_A,secret_number_B,dec_convert)
 
-    print("{0}" + "\t" + "{1}".format(public_key_A,public_key_B))
-
+    print("первый ключ {0} второй ключ: {1}".format(public_key_A,public_key_B))
 
 # вопрос для пользователя
 def question(prime_root,dec_convert):
